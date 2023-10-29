@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <title>Homepage Image Forgery Detection</title>
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/image.css' rel='stylesheet'>
+    <!-- <script src="{% static 'js/dragdrop.js' %}"></script> -->
+    <link rel="stylesheet" href="{% static 'css/aboutus.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dragmain.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js" defer></script>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" /> -->
+    <script>
+        // Note that the name "myDropzone" is the camelized
+        // id of the form.
+        Dropzone.options.myDropzone = {
+            // Configuration options go here
+            paramName: "file"
+        };
+    </script>
+    <header>
+        <h2>TruPixelX</h2>
+        <nav class="nav1">
+            <ul class="nav_links">
+                <li><a href="#">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+</head>
+
+<body>
+
+
+
+    <form action="/" method="POST" role="form" enctype="multipart/form-data" class="dropzone" id="my-dropzone">
+        {% csrf_token %}
+        <div class="main">
+            {% if real_img == none%}
+            <div class="drag-area">
+                <!-- <div class="icons"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div>
+                <h2>Drag and drop image</h2>
+                <h3>OR</h3> -->
+                <!-- <button>Browse Files</button> -->
+                <input type="file" name="file" id="imgInp">
+                <output></output>
+                <script>
+                    const input = document.querySelector("input")
+                    const output = document.querySelector("output")
+                    let imagesArray = []
+                    input.addEventListener("change", () => {
+                        const file = input.files
+                        imagesArray.push(file[0])
+                        displayImages()
+                    })
+                    function displayImages() {
+                        let images = ""
+                        imagesArray.forEach((image, index) => {
+                            images += `<div class="image">
+                <img src="${URL.createObjectURL(image)}" alt="image">
+                <span onclick="deleteImage(${index})">&times;</span>
+              </div>`
+                        })
+                        output.innerHTML = images
+                    }
+                    function deleteImage(index) {
+                        imagesArray.splice(index, 1)
+                        displayImages()
+                    }
+                </script>
+                <!-- <input type="file" name="file" id="file"> -->
+                <!-- {{ form.as_p }} -->
+
+            </div>
+            {% else %}
+            <img src="{{real_img.uploaded_image.url}}" width="400" height="400" />
+            {% endif %}
+            <script src="{% static 'js/index.js' %}" defer></script>
+
+            <button type="submit" class="button2" value="submit"><span class="text">ELA</span></button>
+            {% for message in messages %}
+            <div class="col-md-12 my-3">
+                <div class="mb-3">
+                    <div class="error-message">{{ message }}</div>
+                    {{form.errors}}
+                    <!-- <div class="sent-message">Your message has been sent. Thank you!</div> -->
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+
+    </form>
+    <footer>
+        <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+        </div>
+        <ul class="social_icons">
+            <li><a href="#"><ion-icon size="large" name="logo-facebook"></ion-icon></a></li>
+            <li><a href="#"><ion-icon size="large" name="logo-twitter"></ion-icon></a></li>
+            <li><a href="#"><ion-icon size="large" name="logo-instagram"></ion-icon></a></li>
+            <li><a href="#"><ion-icon size="large" name="logo-github"></ion-icon></a></li>
+            <li><a href="#"><ion-icon size="large" name="logo-linkedin"></ion-icon></a></li>
+        </ul>
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a>
+            <li>
+        </ul>
+        <p>2023 TruPixelX | All Rights Reserved</p>
+    </footer>
+    <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geeks</title>
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+    </script>
+    <span class="heading">Geeks For Geeks</span>
+    <form>
+        <div class="holder">
+            <img id="imgPreview" src="#" alt="pic" />
+        </div>
+        <input type="file" name="photograph" id="file" required="true" />
+    </form>
+    <style>
+        .holder {
+            height: 300px;
+            width: 300px;
+            border: 2px solid black;
+        }
+
+        img {
+            max-width: 300px;
+            max-height: 300px;
+            min-width: 300px;
+            min-height: 300px;
+        }
+
+        input[type="file"] {
+            margin-top: 5px;
+        }
+
+        .heading {
+            font-family: Montserrat;
+            font-size: 45px;
+            color: green;
+        }
+    </style>
+    <script>
+        $(document).ready(() => {
+            $("#file").change(function () {
+                const file = this.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function (event) {
+                        $("#imgPreview")
+                            .attr("src", event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
